@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-classifier
+  namespace: mlops-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-classifier
+  template:
+    metadata:
+      labels:
+        app: sample-classifier
+    spec:
+      containers:
+      - name: model-server
+        image: sample_classifier_service:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MLFLOW_TRACKING_URI
+          value: "http://mlflow-tracking.mlflow.svc.cluster.local:80"
+        - name: MLFLOW_S3_ENDPOINT_URL
+          value: "http://minio.minio.svc.cluster.local:9000"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

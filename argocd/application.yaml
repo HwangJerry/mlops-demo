@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/HwangJerry/mlops-demo  # 실제 레포지토리로 변경
+    repoURL: https://github.com/HwangJerry/mlops-demo
     targetRevision: HEAD
     path: k8s
   destination:
